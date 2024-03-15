@@ -1,0 +1,11 @@
+/home/muskthistle/Schoolwork/341/project3/ImageLibrary/bin/Debug/netcoreapp8.0/ImageLibrary.deps.json
+/home/muskthistle/Schoolwork/341/project3/ImageLibrary/bin/Debug/netcoreapp8.0/ImageLibrary.dll
+/home/muskthistle/Schoolwork/341/project3/ImageLibrary/bin/Debug/netcoreapp8.0/ImageLibrary.pdb
+/home/muskthistle/Schoolwork/341/project3/ImageLibrary/obj/Debug/netcoreapp8.0/ImageLibrary.fsproj.AssemblyReference.cache
+/home/muskthistle/Schoolwork/341/project3/ImageLibrary/obj/Debug/netcoreapp8.0/ImageLibrary.AssemblyInfoInputs.cache
+/home/muskthistle/Schoolwork/341/project3/ImageLibrary/obj/Debug/netcoreapp8.0/ImageLibrary.AssemblyInfo.fs
+/home/muskthistle/Schoolwork/341/project3/ImageLibrary/obj/Debug/netcoreapp8.0/ImageLibrary.fsproj.CoreCompileInputs.cache
+/home/muskthistle/Schoolwork/341/project3/ImageLibrary/obj/Debug/netcoreapp8.0/ImageLibrary.dll
+/home/muskthistle/Schoolwork/341/project3/ImageLibrary/obj/Debug/netcoreapp8.0/refint/ImageLibrary.dll
+/home/muskthistle/Schoolwork/341/project3/ImageLibrary/obj/Debug/netcoreapp8.0/ImageLibrary.pdb
+/home/muskthistle/Schoolwork/341/project3/ImageLibrary/obj/Debug/netcoreapp8.0/ref/ImageLibrary.dll

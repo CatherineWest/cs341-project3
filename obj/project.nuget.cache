@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "2glQJcvnyrM8e5O2kgumWjXOpP2fkzUsEuF8zKx5Rkv7kq7XPbU41bivIexvozvPD7uHoModyalv5wVlY5M0OQ==",
+  "success": true,
+  "projectFilePath": "/home/muskthistle/Schoolwork/341/project3/project3.fsproj",
+  "expectedPackageFiles": [
+    "/home/muskthistle/.nuget/packages/fsharp.core/8.0.102/fsharp.core.8.0.102.nupkg.sha512",
+    "/home/muskthistle/.nuget/packages/microsoft.netcore.app.ref/7.0.17/microsoft.netcore.app.ref.7.0.17.nupkg.sha512",
+    "/home/muskthistle/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.17/microsoft.aspnetcore.app.ref.7.0.17.nupkg.sha512",
+    "/home/muskthistle/.nuget/packages/microsoft.netcore.app.host.linux-x64/7.0.17/microsoft.netcore.app.host.linux-x64.7.0.17.nupkg.sha512"
+  ],
+  "logs": []
+}

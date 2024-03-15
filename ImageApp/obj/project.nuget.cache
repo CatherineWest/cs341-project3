@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "aNOFjt9xbzXjfKpVpk7gSmc1Wa8zhuFUJf5rdi32IWsAbxPkZCHRROuSs2kEPyFs0kGzGNIL2DyvmvQ6GviDAg==",
+  "success": true,
+  "projectFilePath": "/home/muskthistle/Schoolwork/341/project3/ImageApp/ImageApp.csproj",
+  "expectedPackageFiles": [
+    "/home/muskthistle/.nuget/packages/fsharp.core/8.0.102/fsharp.core.8.0.102.nupkg.sha512"
+  ],
+  "logs": []
+}

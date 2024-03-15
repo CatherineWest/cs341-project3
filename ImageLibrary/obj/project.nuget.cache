@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "LTPZ5qQOccJLD0OFAfT6tMJj7+7Xcq2/Atb1+77Ai/C/QDnclT6AWUKl+c283knoKBrJ8QORqLq0AA8bpFkUrg==",
+  "success": true,
+  "projectFilePath": "/home/muskthistle/Schoolwork/341/project3/ImageLibrary/ImageLibrary.fsproj",
+  "expectedPackageFiles": [
+    "/home/muskthistle/.nuget/packages/fsharp.core/8.0.102/fsharp.core.8.0.102.nupkg.sha512"
+  ],
+  "logs": []
+}
