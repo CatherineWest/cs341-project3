@@ -15,17 +15,18 @@ module Operations =
   // all functions must be indented
   //
 
-  // this edits one row of pixels with sepia values and returns that row. I am usually good at coming up with ways to not code like this but my demons won today.
-  let sepiaHelper row:(int*int*int) list =
-    row |> List.map (fun (r:int,g:int,b:int) -> (let (oldR,oldG,oldB) = (float r,float g,float b) 
-    min 255, int ((0.393*oldR) + (0.769*oldG) + (0.189*oldB)),
-    min 255, int ((0.349*oldR) + (0.686*oldG) + (0.168*oldB)),
-    min 255, int ((0.272*oldR) + (0.534*oldG) + (0.131*oldB))
-    ))
-    ro
+  // let (oldR,oldG,oldB) = (float r,float g,float b)
+  // (min (255, int (0.393*oldR + 0.769*oldG + 0.189*oldB)),
+  // min (255, int 0.349*oldR + 0.686*oldG + 0.168*oldB),
+  // min (255, int (0.272*oldR + 0.534*oldG + 0.131*oldB)))
 
-  //
-  // Sepia:
+  let applySepia pixel:(int*int*int) =
+    let (r,g,b) = pixel
+    let newR = int (0.393*double r + 0.769*double g + 0.189*double b)
+    let newG = int (0.349*double r + 0.686*double g+ 0.168*double b)
+    let newB = int (0.272*double r+ 0.534*double g+ 0.131*double b)
+    (min newR 255,min newG 255, min newB 255)
+  //  Sepia:
   //
   // Applies a sepia filter onto the image and returns the 
   // resulting image as a list of lists. 
@@ -44,11 +45,15 @@ module Operations =
   //
 
   let rec Sepia (width:int) (height:int) (depth:int) (image:(int*int*int) list list)= 
-    // for now, just return the image back, i.e. do nothing:
-    match image with
-    | list::[] -> sepiaHelper list
-    | list::tail -> sepiaHelper list::Sepia width height depth tail
-
+    List.map(fun(lst) -> (List.map(fun(r:int,g:int,b:int)->(applySepia (r,g,b))) lst)) image
+    
+  let intensityHelper pixel intensity color =
+    let (r:double,g:double,b:double) = pixel
+    if color = 'r' then ((min 255 (int (r*intensity)),int g,int b))
+    elif color = 'g' then (int r,min 255 (int (g*intensity)),int b)
+    elif color = 'b' then (int r,int g, min 255 (int (b*intensity)))
+    else (int r, int g, int b)
+  
   //
   // Increase Intensity
   //
@@ -73,7 +78,8 @@ module Operations =
                     (intensity:double)
                     (channel:char) = 
     // for now, just return the image back, i.e. do nothing:
-    image
+    List.map(fun(lst) -> (List.map(fun(r:int,g:int,b:int)->(intensityHelper (float r,float g, float b) intensity channel))lst)) image
+    
 
 
   //
@@ -93,7 +99,7 @@ module Operations =
                          (depth:int)
                          (image:(int*int*int) list list) = 
     // for now, just return the image back, i.e. do nothing:
-    image
+    List.map(fun(lst) -> (List.rev lst)) image
 
   //
   // Rotate180:
@@ -107,7 +113,8 @@ module Operations =
                         (depth:int)
                         (image:(int*int*int) list list) = 
     // for now, just return the image back, i.e. do nothing:
-    image
+    FlipHorizontal width height depth (List.rev image)
+    
 
 
   //
@@ -150,10 +157,21 @@ module Operations =
   //
   // Returns: updated image.
   //
+
+  let isAboveThreshold (r:int) (g:int) (b:int) (otherR:int) (otherG:int) (otherB:int) (threshold:int) =
+    if int (sqrt ((double (r-otherR)**2) + (double (g-otherG)**2) + (double (b-otherB)**2))) > threshold then true else false
+
+  let rec edgeHelper (topLst:(int*int*int) list) (bottomLst:(int*int*int) list) (threshold:int) =
+    match (topLst,bottomLst) with
+    | ((r,g,b)::(rr,rg,rb)::[],(br,bg,bb)::tail) -> if (isAboveThreshold r g b rr rb rg threshold) || (isAboveThreshold r g b br bg bb threshold) then [(0,0,0)] else [(255,255,255)]
+    | ((r,g,b)::(rr,rg,rb)::primaryTl,(br,bg,bb)::bottomTl) -> if (isAboveThreshold r g b rr rb rg threshold) || (isAboveThreshold r g b br bg bb threshold) then (0,0,0)::(edgeHelper primaryTl bottomTl threshold) else (255,255,255)::(edgeHelper primaryTl bottomTl threshold)
+  
+      
   let rec EdgeDetect (width:int)
                      (height:int)
                      (depth:int)
                      (image:(int*int*int) list list)
                      (threshold:int) = 
-    // for now, just return the image back, i.e. do nothing:
-    image
+    match image with
+    | primary::secondary::[] -> [edgeHelper primary secondary threshold]
+    | primary::secondary::tail -> edgeHelper primary secondary  threshold::EdgeDetect width height depth tail threshold
