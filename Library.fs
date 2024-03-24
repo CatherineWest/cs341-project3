@@ -159,12 +159,17 @@ module Operations =
   //
 
   let isAboveThreshold (r:int) (g:int) (b:int) (otherR:int) (otherG:int) (otherB:int) (threshold:int) =
-    if int (sqrt ((double (r-otherR)**2) + (double (g-otherG)**2) + (double (b-otherB)**2))) > threshold then true else false
+    (int (sqrt ((double (r-otherR)**2) + (double (g-otherG)**2) + (double (b-otherB)**2))) > threshold)
 
   let rec edgeHelper (topLst:(int*int*int) list) (bottomLst:(int*int*int) list) (threshold:int) =
     match (topLst,bottomLst) with
     | ((r,g,b)::(rr,rg,rb)::[],(br,bg,bb)::tail) -> if (isAboveThreshold r g b rr rb rg threshold) || (isAboveThreshold r g b br bg bb threshold) then [(0,0,0)] else [(255,255,255)]
-    | ((r,g,b)::(rr,rg,rb)::primaryTl,(br,bg,bb)::bottomTl) -> if (isAboveThreshold r g b rr rb rg threshold) || (isAboveThreshold r g b br bg bb threshold) then (0,0,0)::(edgeHelper primaryTl bottomTl threshold) else (255,255,255)::(edgeHelper primaryTl bottomTl threshold)
+    | ((r,g,b)::(rr,rg,rb)::primaryTl,(br,bg,bb)::bottomTl) -> 
+    let oldR,oldG,oldB = r,g,b
+    let oldRR, oldRG, oldRB = rr,rg,rb
+    let oldBR, oldBG, oldBB = br,bg,bb
+    
+    if (isAboveThreshold oldR oldG oldB oldRR oldRG oldRB threshold) || (isAboveThreshold oldR oldG oldB oldBR oldBG oldBB threshold) then (0,0,0)::(edgeHelper ((rr,rg,rb)::primaryTl) bottomTl threshold) else [(255,255,255)]@(edgeHelper primaryTl bottomTl threshold)
   
       
   let rec EdgeDetect (width:int)
@@ -174,4 +179,4 @@ module Operations =
                      (threshold:int) = 
     match image with
     | primary::secondary::[] -> [edgeHelper primary secondary threshold]
-    | primary::secondary::tail -> edgeHelper primary secondary  threshold::EdgeDetect width height depth tail threshold
+    | primary::secondary::tail -> [edgeHelper primary secondary  threshold]@EdgeDetect width height depth (secondary::tail) threshold
